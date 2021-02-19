@@ -1,4 +1,84 @@
-const express = require('express');
-const router = express.router();
+const { User } = require('../../../models');
+const Validator = require('fastest-validator');
+const v = new Validator();
+// call api
+const apiAdapter = require('../../apiAdapter');
+const { response } = require('express');
+const { SERVICE_AMIKOM_SERVICE } = process.env;
 
+const api = apiAdapter(SERVICE_AMIKOM_SERVICE);
 
+module.exports = async (req, res) => {
+	const schema = {
+		u: 'string|empty:false',
+		p: 'string|min:5',
+	};
+
+	const validate = v.validate(req.body, schema);
+	if (validate.length) {
+		return res.status(400).json({
+			status: 'error',
+			message: validate,
+		});
+	}
+
+	try {
+		const user = await api.post('/api/v1/login', req.body);
+		const data = user.data;
+
+		// return res.json({
+		// 	status: 'success',
+		// 	data
+		// });
+	} catch (error) {
+		if (error.code === 'ECONNREFUSED') {
+			return res
+				.status(500)
+				.json({ status: 'error', message: 'service unavailable' });
+		}
+
+		const { status, data } = error.response;
+		return res.status(status).json(data);
+	}
+
+	const user = await api.post('/api/v1/login', req.body);
+	const data = user.data;
+
+	const npm = req.body.u;
+	const name = user.data.name;
+	const studiId = npm.substring(3, 5);
+	const status = user.data.status;
+
+	if (status === false) {
+		return res.json({
+			status: 'error',
+			message: 'Invalid NPM or Password',
+		});
+	}
+
+	const students = await User.findOne({
+		where: { npm: npm },
+	});
+
+	if (students === null) {
+		const data = {
+			npm: npm,
+			name: name,
+			study_program_id: studiId,
+		};
+
+		const createdUser = await User.create(data);
+
+		return res.json({
+			status: 'success',
+			data: {
+				id: createdUser.id,
+			},
+		});
+	} else {
+		return res.json({
+			status: 'success',
+			message: 'anda sudah terdaftar->home page',
+		});
+	}
+};

@@ -2,13 +2,14 @@
 
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
+
 		await queryInterface.createTable('users', {
-			id: {
-				type: Sequelize.INTEGER,
-				autoIncerement: true,
-				primaryKey: true,
-				allowNull: false,
-			},
+      id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false
+      },
 			npm: {
 				type: Sequelize.STRING,
 				allowNull: false,
@@ -23,11 +24,11 @@ module.exports = {
 			},
 			email: {
 				type: Sequelize.STRING,
-				allowNull: true,
+				allowNull: true
 			},
 			avatar: {
 				type: Sequelize.STRING,
-				allowNull: true,
+				allowNull: true
 			},
 			city_address: {
 				type: Sequelize.STRING,
@@ -39,7 +40,7 @@ module.exports = {
 			},
 			ipk: {
 				type: Sequelize.DOUBLE,
-				nullable: true,
+				allowNull: true
 			},
 			created_at: {
 				type: Sequelize.DATE,
