@@ -22,8 +22,10 @@ module.exports = async (req, res) => {
 		});
 	}
 
+	const user = await api.post('/api/v1/login', req.body);
+
 	try {
-		const user = await api.post('/api/v1/login', req.body);
+		//triger
 		const data = user.data;
 
 		// return res.json({
@@ -40,9 +42,6 @@ module.exports = async (req, res) => {
 		const { status, data } = error.response;
 		return res.status(status).json(data);
 	}
-
-	const user = await api.post('/api/v1/login', req.body);
-	const data = user.data;
 
 	const npm = req.body.u;
 	const name = user.data.name;
