@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 			},
 			phone: {
 				type: DataTypes.DOUBLE,
-				allowNull: false,
+				allowNull: true,
 				field: 'phone'
 			},
 			avatar: {
