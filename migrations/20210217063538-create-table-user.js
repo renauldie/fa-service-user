@@ -26,6 +26,10 @@ module.exports = {
 				type: Sequelize.STRING,
 				allowNull: true
 			},
+			phone: {
+				type: Sequelize.STRING,
+				allowNull: true
+			},
 			avatar: {
 				type: Sequelize.STRING,
 				allowNull: true
@@ -61,6 +65,11 @@ module.exports = {
 			type: 'unique',
 			fields: ['npm'],
 			name: 'UNIQUE_USERS_NPM',
+		});
+		await queryInterface.addConstraint('users', {
+			type: 'unique',
+			fields: ['phone'],
+			name: 'UNIQUE_USERS_PHONE',
 		});
 	},
 
