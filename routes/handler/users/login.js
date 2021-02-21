@@ -73,13 +73,13 @@ module.exports = async (req, res) => {
 			data: {
 				id: createdUser.id,
 			},
-			data_details: data
+			data_details: data,
 		});
 	} else {
 		return res.json({
 			status: 'success',
 			message: 'anda sudah terdaftar->home page',
-			data: data.status
+			data: data.status,
 		});
 	}
 };
