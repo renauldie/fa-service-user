@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
 	}
 
 	const user = await api.post('/api/v1/login', req.body);
-
+	const data = user.data;
 	try {
 		//triger
 		const data = user.data;
@@ -73,11 +73,13 @@ module.exports = async (req, res) => {
 			data: {
 				id: createdUser.id,
 			},
+			data_details: data
 		});
 	} else {
 		return res.json({
 			status: 'success',
 			message: 'anda sudah terdaftar->home page',
+			data: data.status
 		});
 	}
 };
