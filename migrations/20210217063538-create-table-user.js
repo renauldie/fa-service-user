@@ -19,7 +19,7 @@ module.exports = {
 				allowNull: false,
 			},
 			study_program_id: {
-				type: Sequelize.INTEGER,
+				type: Sequelize.STRING,
 				allowNull: false,
 			},
 			email: {
