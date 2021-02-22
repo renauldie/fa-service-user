@@ -5,7 +5,7 @@ module.exports = {
 		await queryInterface.createTable('refresh_tokens', {
 			id: {
 				type: Sequelize.INTEGER,
-				autoIncerement: true,
+				autoIncrement: true,
 				primaryKey: true,
 				allowNull: false,
 			},
@@ -13,8 +13,8 @@ module.exports = {
 				type: Sequelize.TEXT,
 				allowNull: false,
 			},
-			user_id: {
-				type: Sequelize.INTEGER,
+			npm: {
+				type: Sequelize.STRING,
 				allowNull: false,
 			},
 			created_at: {
