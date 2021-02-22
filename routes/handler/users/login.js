@@ -3,7 +3,6 @@ const Validator = require('fastest-validator');
 const v = new Validator();
 // call api
 const apiAdapter = require('../../apiAdapter');
-const { response } = require('express');
 const { SERVICE_AMIKOM_SERVICE } = process.env;
 
 const api = apiAdapter(SERVICE_AMIKOM_SERVICE);
@@ -27,11 +26,6 @@ module.exports = async (req, res) => {
 	try {
 		//triger
 		const data = user.data;
-
-		// return res.json({
-		// 	status: 'success',
-		// 	data
-		// });
 	} catch (error) {
 		if (error.code === 'ECONNREFUSED') {
 			return res
@@ -74,12 +68,14 @@ module.exports = async (req, res) => {
 				id: createdUser.id,
 			},
 			data_details: data,
+			u: npm,
 		});
 	} else {
 		return res.json({
 			status: 'success',
 			message: 'anda sudah terdaftar->home page',
-			data: data.status,
+			data: data,
+			u: npm,
 		});
 	}
 };
