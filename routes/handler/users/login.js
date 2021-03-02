@@ -43,7 +43,7 @@ module.exports = async (req, res) => {
 	const status = user.data.status;
 
 	if (status === false) {
-		return res.json({
+		return res.status(404).json({
 			status: 'error',
 			message: 'Invalid NPM or Password',
 		});
@@ -61,6 +61,11 @@ module.exports = async (req, res) => {
 		};
 
 		const createdUser = await User.create(data);
+		const findUser = await User.findOne({
+			where: {
+				npm: npm
+			}
+		})
 
 		return res.json({
 			status: 'success',
@@ -68,14 +73,20 @@ module.exports = async (req, res) => {
 				id: createdUser.id,
 			},
 			data_details: data,
-			u: npm,
+			main_data: findUser
 		});
 	} else {
+		const findUser = await User.findOne({
+			where: {
+				npm: npm
+			}
+		})
+
 		return res.json({
 			status: 'success',
 			message: 'anda sudah terdaftar->home page',
 			data: data,
-			u: npm,
+			main_data: findUser
 		});
 	}
 };

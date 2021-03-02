@@ -19,8 +19,12 @@ module.exports = async (req, res) => {
 		});
 	}
 
+	const user = await User.findOne({
+		where:{
+			npm: npm
+		}
+	});
 
-	const user = await User.findByPk(2);
 	if (!user) {
 		return res.status(404).json({
 			status: 'error',
