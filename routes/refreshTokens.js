@@ -4,6 +4,6 @@ const router = express.Router()
 const refresTokenHandler = require('./handler/refresh-tokens')
 
 router.post('/', refresTokenHandler.create)
-// router.get('/', refresTokenHandler.getToken)
+router.get('/', refresTokenHandler.getToken)
 
 module.exports = router;
