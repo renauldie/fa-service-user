@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
 
 	const id = req.params.id;
 	const user = await User.findByPk(id);
+
 	if (!user) {
 		return res.status(404).json({
 			status: 'error',
@@ -29,23 +30,21 @@ module.exports = async (req, res) => {
 		});
 	}
 
-  const email = req.body.email;
-  if (email) {
-    const checkEmail = await User.findOne({
-      where: { email }
-    });
+	const email = req.body.email;
+	if (email) {
+		const checkEmail = await User.findOne({
+			where: { email },
+		});
 
-    if (checkEmail && email !== user.email) {
-      return res.status(409).json({
-        status: 'error',
-        message: 'email already exist'
-      })
-    }
-  }
+		if (checkEmail && email !== user.email) {
+			return res.status(409).json({
+				status: 'error',
+				message: 'email already exist',
+			});
+		}
+	}
 
-  const {
-    phone, avatar, city_address, tft, ipk
-  } = req.body
+	const { phone, avatar, city_address, tft, ipk } = req.body;
 
 	await user.update({
 		email,
@@ -56,17 +55,17 @@ module.exports = async (req, res) => {
 		ipk,
 	});
 
-  return res.json({
-    status: 'success',
-    data: {
-      id: user.id,
-      name: user.name,
-      email,
-      phone,
-      avatar,
-      city_address,
-      tft,
-      ipk
-    }
-  })
+	return res.json({
+		status: 'success',
+		data: {
+			id: user.id,
+			name: user.name,
+			email,
+			phone,
+			avatar,
+			city_address,
+			tft,
+			ipk,
+		},
+	});
 };
