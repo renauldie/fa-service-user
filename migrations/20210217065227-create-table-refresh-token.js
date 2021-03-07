@@ -26,6 +26,16 @@ module.exports = {
 				allowNull: false,
 			},
 		});
+
+		await queryInterface.addConstraint('refresh_tokens', {
+			type: 'foreign key',
+			name: 'REFRESH_TOKENS__USER_ID',
+			fields: ['npm'],
+			references: {
+				table: 'users',
+				field: 'npm'
+			}
+		})
 	},
 
 	down: async (queryInterface, Sequelize) => {
