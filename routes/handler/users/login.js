@@ -63,9 +63,9 @@ module.exports = async (req, res) => {
 		const createdUser = await User.create(data);
 		const findUser = await User.findOne({
 			where: {
-				npm: npm
-			}
-		})
+				npm: npm,
+			},
+		});
 
 		return res.json({
 			status: 'success',
@@ -73,20 +73,20 @@ module.exports = async (req, res) => {
 				id: createdUser.id,
 			},
 			data_details: data,
-			main_data: findUser
+			main_data: findUser,
 		});
 	} else {
 		const findUser = await User.findOne({
 			where: {
-				npm: npm
-			}
-		})
+				npm: npm,
+			},
+		});
 
 		return res.json({
 			status: 'success',
 			message: 'anda sudah terdaftar->home page',
 			data: data,
-			main_data: findUser
+			main_data: findUser,
 		});
 	}
 };
